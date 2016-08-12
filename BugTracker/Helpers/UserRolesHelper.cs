@@ -8,47 +8,47 @@ using System.Web;
 
 namespace BugTracker.Helpers
 {
-    public class UserRolesHelper
+    public static class UserRolesHelper
     {
-        private UserManager<ApplicationUser> manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+        private static UserManager<ApplicationUser> manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private static ApplicationDbContext db = new ApplicationDbContext();
 
-        public bool IsUserInRole(string userId, string roleName)
+        public static bool IsUserInRole(string userId, string roleName)
         {
             return manager.IsInRole(userId, roleName);
         }
 
-        public ICollection<string> ListUserRoles(string userId)
+        public static ICollection<string> ListUserRoles(string userId)
         {
             return manager.GetRoles(userId);
         }
 
-        public bool AddUserToRole(string userId, string roleName)
+        public static bool AddUserToRole(string userId, string roleName)
         {
             var result = manager.AddToRole(userId, roleName);
             return result.Succeeded;
         }
 
-        public bool AddUserToRoles(string userId, string[] roleNames)
+        public static bool AddUserToRoles(string userId, string[] roleNames)
         {
             var result = manager.AddToRoles(userId, roleNames);
             return result.Succeeded;
         }
 
-        public bool RemoveUserFromRole(string userId, string roleName)
+        public static bool RemoveUserFromRole(string userId, string roleName)
         {
             var result = manager.RemoveFromRole(userId, roleName);
             return result.Succeeded;
         }
 
-        public bool RemoveUserFromRoles(string userId, string[] roleNames)
+        public static bool RemoveUserFromRoles(string userId, string[] roleNames)
         {
             var result = manager.RemoveFromRoles(userId, roleNames);
             return result.Succeeded;
         }
 
-        public ICollection<ApplicationUser> UsersInRole(string roleName)
+        public static ICollection<ApplicationUser> UsersInRole(string roleName)
         {
             List<ApplicationUser> resultList = new List<ApplicationUser>();
             List<ApplicationUser> users = manager.Users.ToList();
@@ -63,7 +63,7 @@ namespace BugTracker.Helpers
             return resultList;
         }
 
-        public ICollection<ApplicationUser> UsersNotInRoles(string roleName)
+        public static ICollection<ApplicationUser> UsersNotInRoles(string roleName)
         {
             List<ApplicationUser> resultList = new List<ApplicationUser>();
             List<ApplicationUser> users = manager.Users.ToList();
