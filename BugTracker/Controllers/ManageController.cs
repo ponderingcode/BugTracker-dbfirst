@@ -245,6 +245,53 @@ namespace BugTracker.Controllers
         }
 
         //
+        // GET: /Manage/ChangeProfileInfo
+        public ActionResult ChangeProfileInfo()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Manage/ChangeProfileInfo
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeProfileInfo(ChangeProfileInfoViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            //var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            //var user = await manager.FindByIdAsync(User.Identity.GetUserId());
+            ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+
+            if (null != user)
+            {
+                /*** NEEDS REFACTORING ***/
+                // If user left a field blank, use the old value
+                if (null != model.NewFirstName && "" != model.NewFirstName)
+                {
+                    user.FirstName = model.NewFirstName;
+                }
+
+                if (null != model.NewLastName && "" != model.NewLastName)
+                {
+                    user.LastName = model.NewLastName;
+                }
+
+                if (null != model.NewDisplayName && "" != model.NewDisplayName)
+                {
+                    user.DisplayName = model.NewDisplayName;
+                }
+                UserManager.Update(user);
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeProfileInfoSuccess });
+            }
+
+            return View(model);
+        }
+
+        //
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()
         {
@@ -377,6 +424,7 @@ namespace BugTracker.Controllers
         {
             AddPhoneSuccess,
             ChangePasswordSuccess,
+            ChangeProfileInfoSuccess,
             SetTwoFactorSuccess,
             SetPasswordSuccess,
             RemoveLoginSuccess,

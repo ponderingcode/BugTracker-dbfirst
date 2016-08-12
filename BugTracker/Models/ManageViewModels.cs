@@ -58,6 +58,18 @@ namespace BugTracker.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class ChangeProfileInfoViewModel
+    {
+        [Display(Name = "First Name")]
+        public string NewFirstName { get; set; }
+
+        [Display(Name = "Last Name")]
+        public string NewLastName { get; set; }
+
+        [Display(Name = "Display Name")]
+        public string NewDisplayName { get; set; }
+    }
+
     public class AddPhoneNumberViewModel
     {
         [Required]
