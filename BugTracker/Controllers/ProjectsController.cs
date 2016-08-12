@@ -15,12 +15,14 @@ namespace BugTracker.Controllers
         private BugTrackerEntities db = new BugTrackerEntities();
 
         // GET: Projects
+        [Authorize(Roles = Role.ADMINISTRATOR + ", " + Role.PROJECT_MANAGER + ", " + Role.DEVELOPER)]
         public ActionResult Index()
         {
             return View(db.Projects.ToList());
         }
 
         // GET: Projects/Details/5
+        [Authorize(Roles = Role.ADMINISTRATOR + ", " + Role.PROJECT_MANAGER + ", " + Role.DEVELOPER)]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,6 +38,7 @@ namespace BugTracker.Controllers
         }
 
         // GET: Projects/Create
+        [Authorize(Roles = Role.ADMINISTRATOR)]
         public ActionResult Create()
         {
             return View();
@@ -59,6 +62,7 @@ namespace BugTracker.Controllers
         }
 
         // GET: Projects/Edit/5
+        [Authorize(Roles = Role.ADMINISTRATOR)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -90,6 +94,7 @@ namespace BugTracker.Controllers
         }
 
         // GET: Projects/Delete/5
+        [Authorize(Roles = Role.ADMINISTRATOR)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
