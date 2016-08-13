@@ -77,5 +77,10 @@ namespace BugTracker.Helpers
             }
             return resultList;
         }
+
+        public static string GetUserIdByEmail(string userEmail)
+        {
+            return manager.FindByEmail(userEmail).Id;
+        }
     }
 }

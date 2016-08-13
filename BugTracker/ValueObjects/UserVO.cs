@@ -13,16 +13,16 @@ namespace BugTracker.ValueObjects
         public string DisplayName     { get; private set; }
         public string Email           { get; private set; }
         public string UserName        { get; private set; }
-        public List<string> UserRoles { get; private set; }
+        public ICollection<string> UserRoles { get; private set; }
 
-        public UserVO(ApplicationUser user, List<string> userRoles)
+        public UserVO(AspNetUser user, ICollection<string> userRoles)
         {
-            FirstName   = user.FirstName;
-            LastName    = user.LastName;
+            FirstName = user.FirstName;
+            LastName = user.LastName;
             DisplayName = user.DisplayName;
-            Email       = user.Email;
-            UserName    = user.UserName;
-            UserRoles   = UserRoles;
+            Email = user.Email;
+            UserName = user.UserName;
+            UserRoles = userRoles;
         }
     }
 }

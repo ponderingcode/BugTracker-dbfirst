@@ -1,4 +1,9 @@
 ﻿@model IEnumerable<BugTracker.Models.AspNetUser>
+@using BugTracker.Models
+@using BugTracker.ValueObjects
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework
+@using BugTracker.Helpers
 
 @{
     ViewBag.Title = "Index";
@@ -19,6 +24,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DisplayName)
+        </th>
+        <th>
+            Roles
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Email)
@@ -59,6 +67,19 @@
     </tr>
 
 @foreach (var item in Model) {
+    UserVO userVo = new UserVO(item, UserRolesHelper.ListUserRoles(item.Id));
+    string strRoles = string.Empty;
+    foreach (var role in userVo.UserRoles)
+    {
+        if (string.Empty == strRoles)
+        {
+            strRoles += role;
+        }
+        else
+        {
+            strRoles += ", " + role;
+        }
+    }
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.FirstName)
@@ -68,6 +89,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DisplayName)
+        </td>
+        <td>
+            @strRoles
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)

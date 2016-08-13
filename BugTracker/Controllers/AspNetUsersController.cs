@@ -11,6 +11,7 @@ using BugTracker.Helpers;
 
 namespace BugTracker.Controllers
 {
+    [Authorize(Roles = Role.ADMINISTRATOR)]
     public class AspNetUsersController : Controller
     {
         private BugTrackerEntities db = new BugTrackerEntities();

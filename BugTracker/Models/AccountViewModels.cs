@@ -64,6 +64,23 @@ namespace BugTracker.Models
 
     public class RegisterViewModel
     {
+        /*
+        [Required]
+        [EmailAddress]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Display Name")]
+        public string DisplayName { get; set; }
+        */
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
